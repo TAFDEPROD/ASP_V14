@@ -1,0 +1,21 @@
+schema_version = "1.0.0"
+
+id = "audioshapepro"
+version = "13.2.0"
+name = "AudioShapePRO"
+tagline = "Lip Sync SEQUENCE/SPECTRAL/ASMS — VOX+ASMS+ULTRA, émotion, coarticulation, Praat LPC"
+maintainer = "TAF DE PROD"
+type = "add-on"
+
+blender_version_min = "4.2.0"
+
+license = ["SPDX:MIT"]
+
+tags = ["Animation", "Audio"]
+
+wheels = [
+  "./wheels/phonemizer-3.3.0-py3-none-any.whl",
+]
+
+[permissions]
+files = "Cache modèle Vosk, export WAV temporaire"

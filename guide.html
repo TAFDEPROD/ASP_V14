@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AudioShapePRO v8.0 — Guide Utilisateur</title>
+<style>
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;--accent:#f78166;--accent2:#79c0ff;--accent3:#56d364;--accent4:#d2a8ff;--yellow:#e3b341;--cyan:#39d0d8;--text:#c9d1d9;--text2:#8b949e;--text3:#6e7681;--border:#30363d;--card:#161b22;--shadow:0 8px 32px rgba(0,0,0,.6);--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(86,211,100,.4)}50%{box-shadow:0 0 0 10px rgba(86,211,100,0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.05)}}
+header{position:relative;overflow:hidden;background:linear-gradient(-45deg,#1a0533,#0d1117,#001a33,#0d1117);background-size:400% 400%;animation:gradShift 8s ease infinite;padding:60px 60px 48px}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")}
+.hinner{position:relative;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:48px}
+.htext{flex:1}.hlogo{animation:float 4s ease-in-out infinite;flex-shrink:0}
+h1{font-size:2.8rem;font-weight:900;letter-spacing:-1.5px;line-height:1.1}
+h1 .asp{color:var(--accent2)}h1 .pro{color:var(--accent)}
+header p{color:var(--text2);margin-top:12px;font-size:1.05rem;max-width:580px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.badge{display:inline-flex;align-items:center;padding:3px 12px;border-radius:20px;font-size:.76rem;font-weight:700;border:1px solid}
+.bg{background:rgba(86,211,100,.12);color:var(--accent3);border-color:rgba(86,211,100,.3)}
+.bb{background:rgba(121,192,255,.12);color:var(--accent2);border-color:rgba(121,192,255,.3)}
+.bp{background:rgba(210,168,255,.12);color:var(--accent4);border-color:rgba(210,168,255,.3)}
+.bo{background:rgba(247,129,102,.12);color:var(--accent);border-color:rgba(247,129,102,.3)}
+.by{background:rgba(227,179,65,.12);color:var(--yellow);border-color:rgba(227,179,65,.3)}
+nav{background:rgba(13,17,23,.96);border-bottom:1px solid var(--border);padding:0 60px;position:sticky;top:0;z-index:100;display:flex;flex-wrap:wrap;backdrop-filter:blur(12px)}
+nav a{display:block;padding:13px 13px;color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:600;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+nav a:hover,nav a.active{color:var(--accent2);border-color:var(--accent2)}
+.container{max-width:1100px;margin:0 auto;padding:48px 40px 100px}
+section{margin-bottom:80px;scroll-margin-top:60px;animation:fadeUp .5s ease both;animation-play-state:paused}
+h2{font-size:1.65rem;font-weight:800;margin-bottom:28px;display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+h2 .num{background:linear-gradient(135deg,var(--accent),var(--accent4));color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;flex-shrink:0}
+h3{font-size:1.05rem;font-weight:700;margin:26px 0 12px;color:var(--accent3)}
+h4{font-size:.93rem;font-weight:700;margin:14px 0 8px;color:var(--accent2)}
+p{margin-bottom:12px;color:var(--text)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:14px;box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card-hl{border-color:var(--accent3);background:rgba(86,211,100,.04)}
+.card-icon{font-size:2rem;margin-bottom:10px;display:block}
+.stcards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.stc{background:var(--bg3);border:2px solid var(--border);border-radius:var(--radius);padding:20px;transition:all .25s;position:relative}
+.stc:hover{border-color:var(--accent2);transform:translateY(-3px)}
+.stc.rec{border-color:var(--accent3);background:rgba(86,211,100,.04)}
+.stc.rec::after{content:'RECOMMANDÉ';position:absolute;top:10px;right:10px;background:var(--accent3);color:#0d1117;padding:2px 8px;border-radius:10px;font-size:.62rem;font-weight:900;letter-spacing:.5px}
+.stc-tag{font-size:.68rem;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.stc h3{margin-top:0;margin-bottom:8px;font-size:1rem}
+.stc table{font-size:.8rem;border-collapse:collapse;width:100%;margin-top:10px}
+.stc td{padding:3px 5px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text2)}
+.stc td:first-child{color:var(--text3);width:48%}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:42px;bottom:-8px;width:2px;background:var(--border)}
+.snum{width:40px;height:40px;border-radius:50%;flex-shrink:0;margin-right:18px;background:linear-gradient(135deg,var(--accent2),var(--accent4));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.88rem;color:#0d1117;z-index:1;box-shadow:0 0 0 4px var(--bg)}
+.sbody{padding-bottom:26px;flex:1}
+.sbody h4{margin-top:8px;color:var(--accent2)}
+.sbody p{margin-bottom:0;color:var(--text2);font-size:.88rem}
+code{background:var(--bg4);color:var(--accent2);padding:2px 7px;border-radius:4px;font-family:'Cascadia Code','Fira Code',monospace;font-size:.87em}
+.codeblock{background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin:12px 0;font-family:'Cascadia Code','Fira Code',monospace;font-size:.84rem;overflow-x:auto;line-height:1.7}
+.cm{color:var(--text3)}.cs{color:var(--accent3)}.ck{color:var(--accent4)}
+.tip,.warn,.info,.danger{padding:12px 16px;border-radius:var(--radius);margin:12px 0;display:flex;gap:10px}
+.tip{background:rgba(86,211,100,.07);border-left:3px solid var(--accent3)}
+.warn{background:rgba(227,179,65,.07);border-left:3px solid var(--yellow)}
+.info{background:rgba(121,192,255,.07);border-left:3px solid var(--accent2)}
+.danger{background:rgba(247,129,102,.07);border-left:3px solid var(--accent)}
+.ci{font-size:1.1rem;flex-shrink:0}
+.ct{font-size:.88rem;color:var(--text2);line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem}
+th{background:var(--bg4);color:var(--accent2);padding:9px 13px;text-align:left;font-weight:700;border-bottom:2px solid var(--border)}
+td{padding:8px 13px;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,.02)}
+.brow{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.btn{padding:11px 20px;border-radius:8px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:7px;cursor:default;transition:transform .15s}
+.btn:hover{transform:scale(1.04)}
+.baudio{background:linear-gradient(135deg,#1f6feb,#388bfd);color:#fff;box-shadow:0 4px 14px rgba(31,111,235,.35)}
+.bauto{background:linear-gradient(135deg,#da3633,#f85149);color:#fff;box-shadow:0 4px 14px rgba(218,54,51,.35)}
+.bbake{background:linear-gradient(135deg,#1a7f37,#2ea043);color:#fff;box-shadow:0 4px 14px rgba(46,160,67,.35);animation:pulse 2.5s infinite}
+.phonegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:8px;margin:14px 0}
+.phc{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 8px;text-align:center;transition:all .2s}
+.phc:hover{border-color:var(--accent2)}
+.phc .ph{font-size:1.35rem;font-weight:900;color:var(--accent2)}
+.phc .pd{font-size:.68rem;color:var(--text3);margin-top:3px}
+.phc .ps{font-size:.68rem;color:var(--accent3);margin-top:2px}
+.emogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px;margin:14px 0}
+.emoc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;transition:all .25s}
+.emoc:hover{border-color:var(--accent4);transform:translateY(-3px)}
+.emoc .em{font-size:2.2rem;display:block;margin-bottom:7px}
+.emoc h4{font-size:.84rem;color:var(--accent4);margin:0 0 5px}
+.emoc p{font-size:.72rem;color:var(--text3);margin:0;line-height:1.4}
+.pipeline{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:18px 0}
+.ps2{background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:10px 14px;text-align:center;font-size:.78rem;min-width:105px}
+.ps2 .pi{font-size:1.3rem;display:block;margin-bottom:3px}
+.ps2 .pl{color:var(--text2)}
+.pa{color:var(--text3);padding:0 8px;font-size:1.1rem}
+.pw{background:var(--bg3);border:2px solid var(--border);border-radius:var(--radius);padding:14px;font-family:monospace;font-size:.8rem;line-height:2.1;color:var(--text2);max-width:370px}
+.pwh{color:var(--accent2);font-weight:700}
+.pwi{color:var(--text);padding-left:14px}
+.pwhot{color:var(--accent3);font-weight:700;padding-left:14px}
+.pws{color:var(--text3);padding-left:28px;font-size:.75rem}
+.pwc::before{content:"▶ ";color:var(--text3);font-size:.75rem}
+.mbar{background:var(--bg4);border-radius:20px;height:9px;overflow:hidden;margin:8px 0}
+.mfill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--accent3),var(--cyan));width:35%;transition:width .5s}
+.cl{border-left:2px solid var(--border);padding-left:22px}
+.clv{display:flex;align-items:center;gap:10px;margin-bottom:3px;margin-top:22px}
+.clv:first-child{margin-top:0}
+.clt{background:var(--accent2);color:#0d1117;padding:2px 10px;border-radius:20px;font-size:.76rem;font-weight:900}
+.clt.cur{background:var(--accent3)}
+.cli{list-style:none;margin-bottom:0}
+.cli li{color:var(--text2);font-size:.86rem;padding:1px 0}
+.cli li::before{content:"✦ ";color:var(--accent3)}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:7px;overflow:hidden}
+.faq-q{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;color:var(--text);background:var(--bg3);transition:background .2s;user-select:none}
+.faq-q:hover{background:var(--bg4)}
+.faq-q::after{content:"＋";color:var(--accent2);font-size:1.1rem;transition:transform .3s}
+.faq-item.open .faq-q::after{content:"−"}
+.faq-a{display:none;padding:14px 18px;background:var(--bg2);color:var(--text2);font-size:.88rem;border-top:1px solid var(--border);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:36px 60px;text-align:center;color:var(--text3)}
+footer p{font-size:.84rem;margin-bottom:5px}
+@media(max-width:768px){
+  header{padding:40px 20px 32px}.hinner{flex-direction:column;gap:20px}
+  nav{padding:0 12px}.container{padding:30px 16px 60px}
+  .stcards{grid-template-columns:1fr}.brow{flex-direction:column}
+  .pipeline{flex-direction:column}.pa{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hinner">
+  <div class="htext">
+    <h1><span class="asp">Audio</span><span class="pro">Shape</span><span class="asp">PRO</span></h1>
+    <p>Addon LipSync avancé pour Blender — Coarticulation phonétique, Vosk embarqué, presets émotionnels.</p>
+    <div class="badges">
+      <span class="badge bb">v8.0</span>
+      <span class="badge bg">Blender 4.2+</span>
+      <span class="badge bp">Vosk embarqué</span>
+      <span class="badge bo">FFT+LPC</span>
+      <span class="badge by">RMS</span>
+      <span class="badge bg">SEQUENCE</span>
+    </div>
+  </div>
+  <div class="hlogo">
+    <svg viewBox="0 0 120 120" width="110" height="110" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="54" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+      <g style="animation:blink 3.5s ease-in-out infinite">
+        <ellipse cx="42" cy="46" rx="5" ry="6" fill="#79c0ff"/>
+        <ellipse cx="78" cy="46" rx="5" ry="6" fill="#79c0ff"/>
+      </g>
+      <path d="M 36 78 Q 60 100 84 78" stroke="#f78166" stroke-width="3" fill="rgba(247,129,102,.15)" stroke-linecap="round">
+        <animate attributeName="d" values="M 36 78 Q 60 100 84 78;M 36 75 Q 60 62 84 75;M 36 80 Q 60 106 84 80;M 36 73 Q 60 59 84 73;M 36 78 Q 60 100 84 78" dur="2.4s" repeatCount="indefinite"/>
+      </path>
+      <ellipse cx="60" cy="90" rx="16" ry="0" fill="#0d1117">
+        <animate attributeName="ry" values="0;9;0;13;0;7;0" dur="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="90;87;90;86;90;88;90" dur="2.4s" repeatCount="indefinite"/>
+      </ellipse>
+      <g opacity=".35">
+        <path d="M8 60 L8 42" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round">
+          <animate attributeName="d" values="M8 60 L8 42;M8 60 L8 36;M8 60 L8 44;M8 60 L8 42" dur=".9s" repeatCount="indefinite"/>
+        </path>
+        <path d="M18 60 L18 30" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round">
+          <animate attributeName="d" values="M18 60 L18 30;M18 60 L18 38;M18 60 L18 28;M18 60 L18 30" dur="1.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M102 60 L102 42" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round">
+          <animate attributeName="d" values="M102 60 L102 42;M102 60 L102 36;M102 60 L102 44;M102 60 L102 42" dur="1.0s" repeatCount="indefinite"/>
+        </path>
+        <path d="M112 60 L112 30" stroke="#79c0ff" stroke-width="2.5" stroke-linecap="round">
+          <animate attributeName="d" values="M112 60 L112 30;M112 60 L112 38;M112 60 L112 28;M112 60 L112 30" dur="1.3s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </svg>
+  </div>
+</div>
+</header>
+
+<nav id="topnav">
+  <a href="#install">Installation</a>
+  <a href="#quickstart">Démarrage</a>
+  <a href="#interface">Interface</a>
+  <a href="#strategies">Stratégies</a>
+  <a href="#visemes">Visèmes</a>
+  <a href="#emotion">Émotions</a>
+  <a href="#coarticulation">Coarticulation</a>
+  <a href="#memory">Mémoire</a>
+  <a href="#vosk">Vosk</a>
+  <a href="#faq">FAQ</a>
+  <a href="#changelog">Changelog</a>
+</nav>
+
+<div class="container">
+
+<section id="install">
+<h2><span class="num">1</span> Installation</h2>
+<div class="card-grid">
+<div class="card">
+  <span class="card-icon">📦</span>
+  <h3>Installer l'addon</h3>
+  <div class="steps">
+    <div class="step"><div class="snum">1</div><div class="sbody"><h4>Préférences Blender</h4><p>Edit → Preferences → Add-ons → Install…</p></div></div>
+    <div class="step"><div class="snum">2</div><div class="sbody"><h4>Sélectionner le ZIP</h4><p>Choisir <code>AudioShapePRO_v8.zip</code></p></div></div>
+    <div class="step"><div class="snum">3</div><div class="sbody"><h4>Activer</h4><p>Cocher ✓ <strong>Animation: AudioShapePRO</strong></p></div></div>
+    <div class="step"><div class="snum">4</div><div class="sbody"><h4>Ouvrir le N-Panel</h4><p>Vue 3D → touche <code>N</code> → onglet <strong>"Lip Sync"</strong></p></div></div>
+  </div>
+</div>
+<div class="card card-hl">
+  <span class="card-icon">🤖</span>
+  <h3>Vosk — aucune action requise</h3>
+  <p>Vosk est <strong>entièrement embarqué</strong> (roues Win/Linux/macOS incluses). Le modèle FR (~41 Mo) se télécharge automatiquement au premier bake et est ensuite en cache permanent hors-ligne.</p>
+  <div class="tip"><span class="ci">💡</span><div class="ct">Pré-téléchargez via <strong>Émotion &amp; Coarticulation → ⬇ Télécharger maintenant</strong> pour éviter l'attente au premier bake.</div></div>
+  <h3>Format audio recommandé</h3>
+  <div class="codeblock"><span class="cm"># WAV 16kHz mono = optimal pour Vosk</span>
+ffmpeg -i audio.mp3 -ar <span class="cs">16000</span> -ac <span class="cs">1</span> audio.wav</div>
+</div>
+</div>
+</section>
+
+<section id="quickstart">
+<h2><span class="num">2</span> Démarrage rapide</h2>
+<div class="brow">
+  <div class="btn baudio">▶ Audio</div>
+  <div class="btn bauto">🔗 AUTOMAP_ShapeKeys</div>
+  <div class="btn bbake">⚡ Bake tout</div>
+</div>
+<div class="card">
+  <div class="steps">
+    <div class="step"><div class="snum">1</div><div class="sbody"><h4>Sélectionner le personnage</h4><p>Cliquer sur le mesh avec shape keys dans la vue 3D.</p></div></div>
+    <div class="step"><div class="snum">2</div><div class="sbody"><h4>Initialiser AudioShapePRO</h4><p>N-Panel → "Lip Sync" → <strong>"✨ Ajouter Lip Sync à la sélection"</strong>.</p></div></div>
+    <div class="step"><div class="snum">3</div><div class="sbody"><h4>Charger l'audio</h4><p>Cliquer le champ Audio → parcourir votre fichier WAV/MP3.</p></div></div>
+    <div class="step"><div class="snum">4</div><div class="sbody"><h4>AUTOMAP des shape keys</h4><p>Cliquer <strong>🔗 AUTOMAP_ShapeKeys</strong> — mappe automatiquement A/E/I/O/U/FV/MBP/SIL.</p></div></div>
+    <div class="step"><div class="snum">5</div><div class="sbody"><h4>Bake !</h4><p>Cliquer <strong>⚡ Bake tout</strong>. Le rapport post-bake apparaît en bas du panneau.</p></div></div>
+  </div>
+</div>
+<div class="info"><span class="ci">ℹ️</span><div class="ct">Au premier bake, Vosk télécharge le modèle FR (~41 Mo). Blender peut sembler gelé 30–60s — c'est normal. Tous les bakes suivants sont instantanés.</div></div>
+</section>
+
+<section id="interface">
+<h2><span class="num">3</span> Interface — N-Panel "Lip Sync"</h2>
+<div class="card-grid">
+<div class="card">
+  <h3>Structure du panneau principal</h3>
+  <div class="pw">
+    <div class="pwh">📢 AudioShapePRO v8.0</div>
+    <div class="pwi">🔊 [Audio]  chemin fichier WAV</div>
+    <div class="pwi">⚙ Configuration  langue | voix | stratégie</div>
+    <div class="pwhot">🔗 AUTOMAP_ShapeKeys  ← gros bouton</div>
+    <div class="pwi">🎬 Animation  presets style + sliders</div>
+    <div class="pwi">〰 Smooth Bézier  [toggle]</div>
+    <div class="pwhot">⚡ Bake tout  ← gros bouton</div>
+    <div class="pwi">📊 Détection  rapport post-bake</div>
+    <br>
+    <div class="pwc pwh">Mapping &amp; Phonèmes</div>
+    <div class="pwc pwh">Réglages avancés</div>
+    <div class="pwc pwh">Émotion &amp; Coarticulation ✦ NOUVEAU</div>
+    <div class="pwc pwh">Filtres audio</div>
+    <div class="pwc pwh">Formants F1–F5</div>
+    <div class="pwc pwh">Performance</div>
+    <div class="pwc pwh">Sécurité &amp; mémoire</div>
+  </div>
+</div>
+<div class="card">
+  <h3>Sous-panneaux — fermés par défaut</h3>
+  <table>
+    <tr><th>Sous-panneau</th><th>Contenu</th></tr>
+    <tr><td>Mapping &amp; Phonèmes</td><td>Assigner manuellement A/E/I/O/U/FV/MBP/SIL</td></tr>
+    <tr><td>Réglages avancés</td><td>Forcer contexte, fuzzy matching, nettoyer avant bake, modificateurs formants</td></tr>
+    <tr><td>Émotion &amp; Coarticulation</td><td>😄😢😠 7 presets, intensité, coarticulation, tilt organique, statut Vosk</td></tr>
+    <tr><td>Filtres audio</td><td>Passe-haut / passe-bas + aperçu filtré</td></tr>
+    <tr><td>Formants F1–F5</td><td>Données scientifiques par phonème/langue/voix</td></tr>
+    <tr><td>Performance</td><td>Statistiques bake, historique 5 derniers</td></tr>
+    <tr><td>Sécurité &amp; mémoire</td><td>Budget RAM, nettoyage, validation audio</td></tr>
+  </table>
+</div>
+</div>
+</section>
+
+<section id="strategies">
+<h2><span class="num">4</span> Stratégies de Bake</h2>
+<div class="stcards">
+<div class="stc rec">
+  <div class="stc-tag">HYBRIDE · PHONÉMIQUE</div>
+  <h3>🗣 SEQUENCE</h3>
+  <p style="color:var(--text2);font-size:.86rem;margin-bottom:8px">Vosk → timing des mots → <strong>phonemizer</strong> (style LipSyncBlender) si installé, sinon <strong>G2P français embarqué</strong> → visèmes sur chaque mot → option Smooth Bézier → coarticulation / émotion.</p>
+  <table>
+    <tr><td>Vosk</td><td>✓ Actif</td></tr>
+    <tr><td>Timing</td><td>Précis (mots Vosk)</td></tr>
+    <tr><td>Visèmes</td><td>Phonemizer IPA ou G2P preset</td></tr>
+    <tr><td>Coarticulation</td><td>✓ Configurable</td></tr>
+    <tr><td>Émotions</td><td>✓ 7 presets</td></tr>
+  </table>
+</div>
+<div class="stc">
+  <div class="stc-tag">SPECTRALE</div>
+  <h3>🌊 FFT+LPC</h3>
+  <p style="color:var(--text2);font-size:.86rem;margin-bottom:8px">Analyse FFT + formants LPC. Extrait F1/F2 pour détecter voyelles. Sans Vosk.</p>
+  <table>
+    <tr><td>Vosk</td><td>Non utilisé</td></tr>
+    <tr><td>Timing</td><td>VAD RMS</td></tr>
+    <tr><td>Formants</td><td>F1/F2/F3</td></tr>
+    <tr><td>Modificateurs</td><td>✓ Par phonème</td></tr>
+    <tr><td>Idéal pour</td><td>Voix claire, studio</td></tr>
+  </table>
+</div>
+<div class="stc">
+  <div class="stc-tag">ÉNERGIE</div>
+  <h3>📊 RMS</h3>
+  <p style="color:var(--text2);font-size:.86rem;margin-bottom:8px">Enveloppe d'amplitude avec attack/release. Mâchoire = volume. Robuste au bruit.</p>
+  <table>
+    <tr><td>Vosk</td><td>Non utilisé</td></tr>
+    <tr><td>Timing</td><td>Enveloppe RMS</td></tr>
+    <tr><td>Phonèmes</td><td>Amplitude seule</td></tr>
+    <tr><td>Attack/Release</td><td>Configurable</td></tr>
+    <tr><td>Idéal pour</td><td>Bruit de fond, musique</td></tr>
+  </table>
+</div>
+</div>
+
+<h3>Pipeline SEQUENCE</h3>
+<div class="pipeline">
+  <div class="ps2"><span class="pi">🎵</span><div class="pl">Audio WAV</div></div><div class="pa">→</div>
+  <div class="ps2"><span class="pi">🔇</span><div class="pl">Noise Gate</div></div><div class="pa">→</div>
+  <div class="ps2"><span class="pi">🗣</span><div class="pl">Vosk ASR</div></div><div class="pa">→</div>
+  <div class="ps2"><span class="pi">🔤</span><div class="pl">Phonemizer / G2P</div></div><div class="pa">→</div>
+  <div class="ps2"><span class="pi">🔗</span><div class="pl">Coarticulation</div></div><div class="pa">→</div>
+  <div class="ps2"><span class="pi">⚡</span><div class="pl">Keyframes</div></div>
+</div>
+<div class="tip"><span class="ci">💡</span><div class="ct"><strong>Style LipSyncBlender :</strong> avec <strong>phonemizer</strong> (+ espeak), SEQUENCE aligne les visèmes sur l’IPA comme LipSyncBlender. Sans phonemizer, le <strong>G2P français embarqué</strong> prend le relais. Activez <strong>Smooth Bézier</strong> dans les réglages timing pour adoucir les courbes dès le bake, puis émotion / coarticulation si besoin.</div></div>
+</section>
+
+<section id="visemes">
+<h2><span class="num">5</span> Visèmes &amp; Shape Keys</h2>
+<div class="card-grid">
+<div class="card">
+  <h3>8 Phonèmes → 8 Visèmes ASP</h3>
+  <div class="phonegrid">
+    <div class="phc"><div class="ph">A</div><div class="pd">Voyelle ouverte</div><div class="ps">VisemeA</div></div>
+    <div class="phc"><div class="ph">E</div><div class="pd">Mi-ouverte</div><div class="ps">VisemeE</div></div>
+    <div class="phc"><div class="ph">I</div><div class="pd">Antérieure</div><div class="ps">VisemeI</div></div>
+    <div class="phc"><div class="ph">O</div><div class="pd">Arrondie</div><div class="ps">VisemeO</div></div>
+    <div class="phc"><div class="ph">U</div><div class="pd">Fermée ronde</div><div class="ps">VisemeU</div></div>
+    <div class="phc"><div class="ph">FV</div><div class="pd">F / V</div><div class="ps">VisemeFV</div></div>
+    <div class="phc"><div class="ph">MBP</div><div class="pd">M / B / P</div><div class="ps">VisemeMBP</div></div>
+    <div class="phc"><div class="ph">SIL</div><div class="pd">Silence</div><div class="ps">VisemeSIL</div></div>
+  </div>
+</div>
+<div class="card">
+  <h3>AUTOMAP — noms reconnus</h3>
+  <table>
+    <tr><th>Visème</th><th>Noms acceptés (fuzzy)</th></tr>
+    <tr><td><code>A</code></td><td>VisemeA, mouth_a, AA, jawOpen, openMouth…</td></tr>
+    <tr><td><code>I</code></td><td>VisemeI, mouth_i, II, smile, EE…</td></tr>
+    <tr><td><code>O</code></td><td>VisemeO, mouth_o, OO, round…</td></tr>
+    <tr><td><code>U</code></td><td>VisemeU, mouth_u, UU, pucker…</td></tr>
+    <tr><td><code>MBP</code></td><td>VisemeMBP, MBP, press, closed, bilabial…</td></tr>
+    <tr><td><code>FV</code></td><td>VisemeFV, FV, teeth_lip, labiodental…</td></tr>
+    <tr><td><code>SIL</code></td><td>VisemeSIL, SIL, rest, default, silence…</td></tr>
+  </table>
+  <div class="warn"><span class="ci">⚠️</span><div class="ct">Si AUTOMAP ne trouve rien → ouvrir <strong>Mapping &amp; Phonèmes</strong> et assigner manuellement via prop_search.</div></div>
+</div>
+</div>
+
+<h3>Stratégie de keyframe (compatible LipSyncBlender)</h3>
+<p>Pour chaque visème détecté : <strong>1 seule keyframe</strong> au début du visème — <code>value=1.0</code> sur la shape key active, <code>value=0.0</code> sur toutes les autres. Anti-redondance + anti-trop-proche + silence intelligent.</p>
+</section>
+
+<section id="emotion">
+<h2><span class="num">6</span> Presets Émotionnels</h2>
+<p>Disponibles dans <strong>Émotion &amp; Coarticulation</strong> (mode SEQUENCE). Basé sur la phonétique affective (Hermès 2012).</p>
+<div class="emogrid">
+  <div class="emoc"><span class="em">😐</span><h4>Neutre</h4><p>Paramètres standards — aucune modification</p></div>
+  <div class="emoc"><span class="em">😄</span><h4>Joyeux</h4><p>Voyelle 'i' suspendue · sourire × 1.4 · rythme vif</p></div>
+  <div class="emoc"><span class="em">😢</span><h4>Triste</h4><p>M/P/B soutenues × 1.3 · mâchoire basse × 0.8</p></div>
+  <div class="emoc"><span class="em">😠</span><h4>Colère</h4><p>Occlusives fortes · grande aperture × 1.3</p></div>
+  <div class="emoc"><span class="em">😲</span><h4>Surpris</h4><p>Grande ouverture × 1.6 · voyelles longues</p></div>
+  <div class="emoc"><span class="em">🤫</span><h4>Chuchoté</h4><p>Amplitude × 0.6 · coarticulation minimale</p></div>
+  <div class="emoc"><span class="em">🎵</span><h4>Chanté</h4><p>Voyelles tenues × 1.2 · transitions lisses</p></div>
+</div>
+<div class="tip"><span class="ci">💡</span><div class="ct">Pour un dialogue joyeux naturel : <strong>Joyeux + intensité 0.4</strong> — subtilement plus vivant sans être caricatural. Pour le cinéma d'animation expressif : intensité 0.8–1.0.</div></div>
+</section>
+
+<section id="coarticulation">
+<h2><span class="num">7</span> Coarticulation &amp; Mouvement Organique</h2>
+<div class="card-grid">
+<div class="card">
+  <h3>Coarticulation phonétique</h3>
+  <h4>Anticipation</h4>
+  <p>Le phonème suivant influence le courant dès 60% de sa durée. Avant /u/, les lèvres commencent à s'arrondir sur le phonème précédent.</p>
+  <h4>Persistance (carryover)</h4>
+  <p>Le phonème précédent persiste dans les premiers 25% du suivant. Transitions douces et continues.</p>
+  <h4>Burst consonantique</h4>
+  <p>Pour B, D, P, T, K, G : micro-pic d'énergie au relâchement de l'occlusion — légère ouverture brusque visible.</p>
+</div>
+<div class="card">
+  <h3>Résistance à la coarticulation</h3>
+  <p style="font-size:.85rem;color:var(--text2)">Source : Nijland et al. (2002), Fowler &amp; Brancazio (2000)</p>
+  <table>
+    <tr><th>Consonne</th><th>Résistance</th><th>Effet</th></tr>
+    <tr><td>/b/, /m/</td><td style="color:var(--accent3)">Faible — 0.3</td><td>Forte coarticulation</td></tr>
+    <tr><td>/k/, /g/</td><td style="color:var(--yellow)">Moy. — 0.4</td><td>Intermédiaire</td></tr>
+    <tr><td>/d/, /t/</td><td style="color:var(--accent)">Élevée — 0.6</td><td>Plus indépendant</td></tr>
+    <tr><td>/s/, /z/</td><td style="color:var(--accent)">Très élev. — 0.7</td><td>Peu influencé</td></tr>
+  </table>
+  <h3>Tilt organique</h3>
+  <p>Légère inclinaison sinusoïdale multi-fréquences (gauche/droite). Simule l'asymétrie naturelle de la parole humaine. Amplitude réglable.</p>
+</div>
+</div>
+<div class="info"><span class="ci">🔬</span><div class="ct"><strong>Base scientifique :</strong> Sereno &amp; Lieberman (1987) — Developmental aspects of lingual coarticulation · Nijland et al. (2002) — Coarticulation patterns in DAS · Adda-Decker et al. (Hermès 2012) — Méthodes et outils pour l'analyse phonétique.</div></div>
+</section>
+
+<section id="memory">
+<h2><span class="num">8</span> Gestion de la Mémoire</h2>
+<div class="card-grid">
+<div class="card">
+  <h3>Budget mémoire (panneau Sécurité)</h3>
+  <div class="mbar"><div class="mfill" id="mfill"></div></div>
+  <p style="font-size:.86rem;color:var(--text2)">AudioShapePRO surveille la mémoire en temps réel. Indicateur visuel dans <strong>Sécurité &amp; mémoire</strong>.</p>
+  <p>Cliquer <strong>Nettoyer la mémoire</strong> pour libérer le cache audio et les fichiers temporaires.</p>
+</div>
+<div class="card">
+  <h3>Optimisations intégrées</h3>
+  <ul style="color:var(--text2);font-size:.87rem;list-style:none;line-height:2.2">
+    <li>✓ Chargement audio par blocs — jamais entier en mémoire</li>
+    <li>✓ Libération après chaque bake de phonème</li>
+    <li>✓ Fichiers WAV temporaires supprimés automatiquement</li>
+    <li>✓ Budget MB configurable dans les préférences Blender</li>
+    <li>✓ Garbage collection pendant les longs bakes</li>
+  </ul>
+</div>
+</div>
+<div class="danger"><span class="ci">🚨</span><div class="ct">Si Blender ralentit : convertissez en <strong>WAV 16kHz mono</strong> (÷6 taille). Évitez plus de 5 min d'audio. Utilisez <strong>Nettoyer la mémoire</strong> entre les bakes.</div></div>
+</section>
+
+<section id="vosk">
+<h2><span class="num">9</span> Vosk — Reconnaissance vocale</h2>
+<div class="card-grid">
+<div class="card card-hl">
+  <h3>Architecture embarquée</h3>
+  <p>Les roues Python de Vosk pour <strong>Windows, Linux et macOS</strong> sont incluses dans le ZIP de l'addon. Aucun <code>pip install</code> requis.</p>
+  <table>
+    <tr><th>Plateforme</th><th>Fichier embarqué</th></tr>
+    <tr><td>Windows x64</td><td><code>vosk-0.3.41-win_amd64.whl</code></td></tr>
+    <tr><td>Linux x86_64</td><td><code>vosk-0.3.41-manylinux.whl</code></td></tr>
+    <tr><td>macOS Universal</td><td><code>vosk-0.3.41-macosx.whl</code></td></tr>
+  </table>
+</div>
+<div class="card">
+  <h3>Modèles de langue</h3>
+  <table>
+    <tr><th>Code</th><th>Langue</th><th>Modèle</th></tr>
+    <tr><td><code>FR</code></td><td>🇫🇷 Français</td><td>vosk-model-small-fr (~41 Mo)</td></tr>
+    <tr><td><code>EN</code></td><td>🇬🇧 English</td><td>vosk-model-small-en (~40 Mo)</td></tr>
+    <tr><td><code>DE</code></td><td>🇩🇪 Deutsch</td><td>vosk-model-small-de (~39 Mo)</td></tr>
+    <tr><td><code>ES</code></td><td>🇪🇸 Español</td><td>vosk-model-small-es (~39 Mo)</td></tr>
+  </table>
+  <div class="tip"><span class="ci">💡</span><div class="ct">Modèles téléchargés depuis alphacephei.com. Mis en cache dans le dossier utilisateur Blender. 100% hors-ligne ensuite.</div></div>
+</div>
+</div>
+</section>
+
+<section id="faq">
+<h2><span class="num">10</span> FAQ</h2>
+<div id="faq-list">
+  <div class="faq-item"><div class="faq-q">La bouche ne bouge pas après le bake</div><div class="faq-a">Vérifiez que AUTOMAP a mappé des shape keys (rapport dans la console Python). Ouvrir <strong>Mapping &amp; Phonèmes</strong> et assigner manuellement. L'objet actif doit être le mesh avec shape keys.</div></div>
+  <div class="faq-item"><div class="faq-q">Blender se fige au premier bake</div><div class="faq-a">Normal : Vosk télécharge le modèle FR (~41 Mo). Attendez 30–60s. Pré-télécharger via <strong>Émotion &amp; Coarticulation → ⬇ Télécharger maintenant</strong>.</div></div>
+  <div class="faq-item"><div class="faq-q">Différence entre FFT+LPC et SEQUENCE ?</div><div class="faq-a">SEQUENCE utilise Vosk pour le timing des mots, puis FFT+LPC frame-par-frame. FFT+LPC seul analyse tout par spectrogramme sans Vosk. SEQUENCE donne des résultats nettement meilleurs sur de la parole claire.</div></div>
+  <div class="faq-item"><div class="faq-q">Mouvements trop exagérés / trop faibles</div><div class="faq-a">Utilisez les presets de style : <strong>Réaliste</strong> (naturel), <strong>Cartoon</strong> (exagéré), <strong>Anime</strong> (poses tenues), <strong>Murmure</strong> (doux). Ou ajustez les modificateurs formants dans <strong>Réglages avancés</strong>.</div></div>
+  <div class="faq-item"><div class="faq-q">Quand utiliser RMS ?</div><div class="faq-a">Quand la parole est très bruitée, pour animer sur de la musique, ou pour des tests rapides. RMS ne distingue pas les phonèmes — la mâchoire suit le volume.</div></div>
+  <div class="faq-item"><div class="faq-q">Comment changer l'émotion sur un passage spécifique ?</div><div class="faq-a">Bakez plusieurs passes avec frame_start/end différents et presets différents. Désactivez <strong>Nettoyer avant bake</strong> dans Réglages avancés pour conserver les keyframes des passes précédentes.</div></div>
+  <div class="faq-item"><div class="faq-q">LINEAR ou Smooth Bézier en SEQUENCE ?</div><div class="faq-a">Par défaut les clés sont en <strong>LINEAR</strong> (style LipSyncBlender). Cochez <strong>Smooth Bézier</strong> dans <em>Réglages timing</em> pour lisser les courbes dès le bake. La <strong>coarticulation</strong> et les presets <strong>émotion</strong> restent disponibles après le bake pour affiner.</div></div>
+  <div class="faq-item"><div class="faq-q">L'addon consomme trop de RAM</div><div class="faq-a">Ouvrir <strong>Sécurité &amp; mémoire → Nettoyer la mémoire</strong>. Convertir l'audio en WAV 16kHz mono. Éviter les fichiers de plus de 5 min.</div></div>
+</div>
+</section>
+
+<section id="changelog">
+<h2><span class="num">11</span> Changelog</h2>
+<div class="cl">
+  <div class="clv"><span class="clt cur">v8.0</span><strong>Version actuelle</strong></div>
+  <ul class="cli">
+    <li>Stratégies renommées : SEQUENCE (ex-Séquenceur), FFT+LPC (ex-FFT+LPC), RMS (nouveau)</li>
+    <li>Sous-panneau Émotion &amp; Coarticulation — 7 presets émotionnels avec emoji</li>
+    <li>Curseurs : Intensité émotion · Force coarticulation · Tilt organique</li>
+    <li>Suppression section "Préférences Vosk" — Vosk silencieux et intégré</li>
+    <li>Guide HTML refondu avec animations SVG et navigation sticky</li>
+    <li>Gestion mémoire améliorée — budget RAM en temps réel</li>
+  </ul>
+  <div class="clv"><span class="clt">v7.3</span></div>
+  <ul class="cli">
+    <li>Modèle Vosk FR auto-téléchargé (cache hors-ligne permanent)</li>
+    <li>Bouton "Télécharger le modèle maintenant"</li>
+    <li>Aperçu bouche lié à la lecture audio (sync v7.1)</li>
+    <li>Smooth Bézier avec slider amplitude handles</li>
+    <li>GPU via API Blender (CUDA, Optix, HIP, Metal, oneAPI)</li>
+  </ul>
+  <div class="clv"><span class="clt">v6.1</span></div>
+  <ul class="cli">
+    <li>Pipeline hybride Vosk+FFT : timing Vosk + phonèmes FFT/LPC frame-par-frame</li>
+    <li>G2P français embarqué (sans phonemizer/espeak)</li>
+    <li>Anti-jitter : median smoothing + run-length encoding</li>
+    <li>Stratégie keyframe LipSyncBlender-compatible</li>
+  </ul>
+</div>
+</section>
+
+</div>
+
+<footer>
+  <p><strong>AudioShapePRO v8.0</strong> — Addon LipSync avancé pour Blender 4.2+</p>
+  <p>Coarticulation : Sereno &amp; Lieberman (1987) · Nijland et al. (2002) · Adda-Decker / Hermès (2012)</p>
+  <p style="margin-top:10px;font-size:.78rem">SEQUENCE | FFT+LPC | RMS — Vosk embarqué — 7 presets émotionnels</p>
+</footer>
+
+<script>
+const ss=document.querySelectorAll('section[id]');
+const nl=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';ss.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  nl.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+},{passive:true});
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const i=q.parentElement,was=i.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(x=>x.classList.remove('open'));
+    if(!was)i.classList.add('open');
+  });
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.style.animationPlayState='running'});
+},{threshold:.08});
+document.querySelectorAll('section').forEach(s=>{s.style.animationPlayState='paused';obs.observe(s)});
+const mf=document.getElementById('mfill');
+if(mf){let p=35;setInterval(()=>{p=Math.max(15,Math.min(72,p+(Math.random()-.5)*10));mf.style.width=p+'%';mf.style.background=p>60?'linear-gradient(90deg,#e3b341,#f78166)':'linear-gradient(90deg,#56d364,#39d0d8)';},1800)}
+</script>
+</body>
+</html>
